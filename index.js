@@ -1,5 +1,10 @@
-const inquirer = require('inquirer');
-const { writeFile } = require('fs').promises;
+// variables and required files
+const Manager = require('./lib/manager')
+const Engineer = require('./lib/engineer')
+const Intern = require('./lib/intern')
+// const inquirer = require('inquirer');
+import inquirer from "inquirer";
+const fs = require('fs')
 
 
 function addManager (answers) {
@@ -7,22 +12,22 @@ function addManager (answers) {
 [
     {
         type: 'input',
-        name: 'managerName',
+        name: 'manName',
         message: `What is the managers' name?`
     },
     {
         type: 'input',
-        name: 'managerId',
+        name: 'manID',
         message: `What is the managers' employee ID?`
     },
     {
         type: 'input',
-        name: 'managerEmail',
+        name: 'manEmail',
         message: `What is the managers' email address?`
     },
     {
         type: 'input',
-        name: 'managerOffice',
+        name: 'manOffice',
         message: `What is the managers' office number?`
     },
     {
@@ -52,22 +57,22 @@ function addEngineer (answers) {
         [
             {
                 type: 'input',
-                name: 'engineerName',
+                name: 'engName',
                 message: `What is the engineers' name?`
             },
             {
                 type: 'input',
-                name: 'engineerId',
+                name: 'engID',
                 message: `What is the engineers' ID?`
             },
             {
                 type: 'input',
-                name: 'engineerEmail',
+                name: 'engEmail',
                 message: `What is the engineers' email?`
             },
             {
                 type: 'input',
-                name: 'engineerGithub',
+                name: 'engGithub',
                 message: `What is the engineers' GitHub username?`
             },
             {
@@ -96,22 +101,22 @@ function addIntern (answers) {
         [
             {
                 type: 'input',
-                name: 'internName',
+                name: 'intName',
                 message: `What is the interns' name?`
             },
             {
                 type: 'input',
-                name: 'internId',
+                name: 'intID',
                 message: `What is the interns' ID?`
             },
             {
                 type: 'input',
-                name: 'internEmail',
+                name: 'intEmail',
                 message: `What is the interns' email?`
             },
             {
                 type: 'input',
-                name: 'internSchool',
+                name: 'intSchool',
                 message: `What is the interns' school?`
             },
             {
@@ -142,23 +147,20 @@ const generateHTML = ({answers}) =>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-      <title>Document</title>
+      <title>Employee Tracker</title>
     </head>
+    <h2>My Team</h2>
     <body>
     <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <h5 class="card-title">${manName}</h5>
+      <p class="card-text">Manager.</p>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Vestibulum at eros</li>
+      <li class="list-group-item">ID: ${manID} </li>
+      <li class="list-group-item">Email: ${manEmail}</li>
+      <li class="list-group-item">Office Number: ${manOffice}</li>
     </ul>
-    <div class="card-body">
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
-    </div>
     </div>
     </body>
     </html>`;
