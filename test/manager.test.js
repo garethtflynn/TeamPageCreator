@@ -1,10 +1,13 @@
 const Manager = require('../lib/manager')
-// const manager = require('../lib/manager')
+
 
 describe('Manager', () => {
-    it('Should return an object of name, ID, email, and office number  ', () => {
-        const manTest = new Manager (Gareth, 7, Email, 1234567890 ) 
-        expect(manTest).toEqual({'name': 'Gareth', 'id': 7, 'email': 'Email', 'office': '1234567890'})
+    it('Extends employee but has the additional parameter of office number', () => {
+        const office = '1234567890'
+        const employee = new Manager ('a', 'b', 'c', office) 
+        expect(employee.office).toEqual(office)
     }
     )
 })
+
+

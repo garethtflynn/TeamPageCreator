@@ -1,14 +1,13 @@
 // variables and required files
-const Manager = require('./lib/manager')
-const Engineer = require('./lib/engineer')
-const Intern = require('./lib/intern')
-// const inquirer = require('inquirer');
-import inquirer from "inquirer";
+// const Manager = require('./lib/manager')
+// const Engineer = require('./lib/engineer')
+// const Intern = require('./lib/intern')
+const inquirer = require('inquirer');
 const fs = require('fs')
 
 
 function addManager (answers) {
-    return inquirer.prompt(
+   return inquirer.prompt(
 [
     {
         type: 'input',
@@ -39,15 +38,16 @@ function addManager (answers) {
             'Intern',
             'Nah Im done'
         ]
-    }.then((answers) => {
-        if (answers.addRole === 'Engineer') {
-            addEngineer ()
-        } if (answers.addRole === 'Intern') {
-            addIntern ()
-        } if (answers.addRole ==='Nah Im done') {
-            init ()
-        }     
-    })
+    }
+    // .then((answers) => {
+    //     if (answers.addRole === 'Engineer') {
+    //         addEngineer ()
+    //     } if (answers.addRole === 'Intern') {
+    //         addIntern ()
+    //     } if (answers.addRole ==='Nah Im done') {
+    //         init ()
+    //     }     
+    // })
     
 ])
 }
@@ -84,15 +84,16 @@ function addEngineer (answers) {
                     'Intern',
                     'Nah Im done'
                 ]
-            }.then((answers) => {
-                if (answers.addRole === 'Engineer') {
-                    addEngineer ()
-                } if (answers.addRole === 'Intern') {
-                    addIntern ()
-                } if (answers.addRole ==='Nah Im done') {
-                    init ()
-                }     
-            })
+            }
+            // .then((answers) => {
+            //     if (answers.addRole === 'Engineer') {
+            //         addEngineer ()
+            //     } if (answers.addRole === 'Intern') {
+            //         addIntern ()
+            //     } if (answers.addRole ==='Nah Im done') {
+            //         init ()
+            //     }     
+            // })
 ])
 }
 
@@ -128,15 +129,17 @@ function addIntern (answers) {
                     'Intern',
                     'Nah Im done'
                 ]
-            }.then((answers) => {
-                if (answers.addRole === 'Engineer') {
-                    addEngineer ()
-                } if (answers.addRole === 'Intern') {
-                    addIntern ()
-                } if (answers.addRole ==='Nah Im done') {
-                    init ()
-                }     
-            })
+            }
+            
+            // ((answers) => {
+            //     if (answers.addRole === 'Engineer') {
+            //         addEngineer ()
+            //     } if (answers.addRole === 'Intern') {
+            //         addIntern ()
+            //     } if (answers.addRole ==='Nah Im done') {
+            //         init ()
+            //     }     
+            // })
 ])            
 }
 
@@ -166,7 +169,7 @@ const generateHTML = ({answers}) =>
     </html>`;
 
 const init = () => {
-    addManager ()
+    addManager () 
     .then((answers)=> writeFile('index.html', generateHTML(answers)))
     .then(() => console.log ('Successfully wrote a HTML!!'))
     .catch((err) => console.error(err));

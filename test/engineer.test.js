@@ -1,10 +1,10 @@
 const Engineer = require('../lib/engineer')
-// const engineer = require('../lib/engineer')
 
 describe('Engineer', () => {
-    it('Should return an object of name, ID, email, and Github username ', () => {
-        const engTest = new Engineer (Gareth, 7, Email, garethtflynn ) 
-        expect(engTest).toEqual({'name': 'Gareth', 'id': 7, 'email': 'Email', 'github': 'garethtflynn'})
+    it('Extends Employee with the added parameter of GitHub username', () => {
+        const github = 'garethtflynn'
+        const employee = new Engineer ('a', 'b', 'c', github) 
+        expect(employee.github).toEqual(github)
     }
     )
 })
