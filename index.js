@@ -120,7 +120,7 @@ const addNewemp = () => {
 };
 
 const createFile = (data) => {
-  fs.writeFile("./dist/index.html", createTeamPage(teamCards), (err) => {
+  fs.writeFile("./dist/index.html", data, (err) => {
     if (err) {
       console.log(err);
     } else {

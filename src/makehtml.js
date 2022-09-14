@@ -21,11 +21,12 @@ const createEngineer = (engineer) => {
        <h5 class="card-title">${engineer.name}</h5>
        <p class="card-text">${engineer.role}</p>
      </div>
+    <div> 
      <ul class="list-group list-group-flush">
       <p class="list-group-item">ID: ${engineer.id} </p>
       <a href="mailto:${engineer.email}" class="list-group-item">${engineer.email}</a>
       <p>Github<a href="href="https://github.com/${engineer.github}" class="list-group-item" target="_blank"> ${engineer.github}/a></p>
-     </ul>
+      </ul>
    </div>
     `;
 };
@@ -37,6 +38,7 @@ const createIntern = (intern) => {
        <h5 class="card-title">${intern.name}</h5>
        <p class="card-text">${intern.role}</p>
      </div>
+    <div> 
      <ul class="list-group list-group-flush">
       <p class="list-group-item">ID: ${intern.id} </p>
       <a href="mailto:${intern.email}" class="list-group-item">${intern.email}</a>
@@ -51,7 +53,7 @@ const create = (data) => {
   
   for(let i = 0; i < data.length; i++) {
     const employee = data[i]
-    const role = employee.getrole() 
+    const role = employee.role 
 
     if(role === 'Manager') {
         const manCard = createManager(employee)
