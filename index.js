@@ -1,179 +1,141 @@
 // variables and required files
-// const Manager = require('./lib/manager')
-// const Engineer = require('./lib/engineer')
-// const Intern = require('./lib/intern')
-const inquirer = require('inquirer');
-const fs = require('fs')
+const inquirer = require("inquirer");
+const fs = require("fs");
+const Manager = require("./lib/manager");
+const Engineer = require("./lib/engineer");
+const Intern = require("./lib/intern");
+const create = require("./src/makehtml");
 
+const employees = [];
 
-function addManager (answers) {
-   return inquirer.prompt(
-[
-    {
-        type: 'input',
-        name: 'manName',
-        message: `What is the managers' name?`
-    },
-    {
-        type: 'input',
-        name: 'manID',
-        message: `What is the managers' employee ID?`
-    },
-    {
-        type: 'input',
-        name: 'manEmail',
-        message: `What is the managers' email address?`
-    },
-    {
-        type: 'input',
-        name: 'manOffice',
-        message: `What is the managers' office number?`
-    },
-    {
-        type: 'list',
-        name: 'addRole',
+const validateUser = (userInput) => {
+  if (userInput === "") {
+    console.log("please enter in a valid answer!");
+    return false;
+  } else {
+    return true;
+  }
+};
+
+const addManager = () => {
+  return inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: `What is the managers' name?`,
+        validate: validateUser,
+      },
+      {
+        type: "input",
+        name: "id",
+        message: `What is the managers' employee ID?`,
+        validate: validateUser,
+      },
+      {
+        type: "input",
+        name: "email",
+        message: `What is the managers' email address?`,
+        validate: validateUser,
+      },
+      {
+        type: "input",
+        name: "office",
+        message: `What is the managers' office number?`,
+        validate: validateUser,
+      },
+    ])
+    .then((manAnswers) => {
+      manAnswers.role = "Manager";
+      const { name, id, email, office } = manAnswers;
+      const newMan = new Manager(name, id, email, office);
+      employees.push(newMan);
+    });
+};
+
+const addNewemp = () => {
+  return inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "role",
         message: `Would you like to add an engineer or intern?`,
-        choice: [
-            'Engineer',
-            'Intern',
-            'Nah Im done'
-        ]
+        choices: ["Engineer", "Intern", "Finish building"],
+      },
+      {
+        type: "input",
+        name: "name",
+        message: `What is their' name?`,
+        validate: validateUser,
+      },
+      {
+        type: "input",
+        name: "id",
+        message: `What is the their' ID?`,
+        validate: validateUser,
+      },
+      {
+        type: "input",
+        name: "email",
+        message: `What is their' email?`,
+        validate: validateUser,
+      },
+      {
+        type: "input",
+        name: "github",
+        message: `What is the engineers' GitHub username?`,
+        validate: validateUser,
+        when: (answers) => answers.role === "Engineer",
+      },
+      {
+        type: "input",
+        name: "school",
+        message: `What is the interns' school?`,
+        validate: validateUser,
+        when: (answers) => answers.role === "Intern",
+      },
+      {
+        type: "confirm",
+        name: "add",
+        message: "would you like to add another team memeber?",
+        default: true,
+      },
+    ])
+    .then((empAnswers) => {
+      let { role, name, id, email, github, school, add } = empAnswers;
+      let employee;
+      if (role === "Engineer") {
+        employee = new Engineer(name, id, email, github);
+      } else if (role === "Intern") {
+        employee = new Intern(name, id, email, school);
+      }
+      employees.push(employee);
+
+      if (add) {
+        return addNewemp(employees);
+      } else {
+        return employees;
+      }
+    });
+};
+
+const createFile = (data) => {
+  fs.writeFile("./dist/index.html", createTeamPage(teamCards), (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Webpage created successfully! Look in dist folder");
     }
-    // .then((answers) => {
-    //     if (answers.addRole === 'Engineer') {
-    //         addEngineer ()
-    //     } if (answers.addRole === 'Intern') {
-    //         addIntern ()
-    //     } if (answers.addRole ==='Nah Im done') {
-    //         init ()
-    //     }     
-    // })
-    
-])
-}
-
-function addEngineer (answers) {
-    return inquirer.prompt(
-        [
-            {
-                type: 'input',
-                name: 'engName',
-                message: `What is the engineers' name?`
-            },
-            {
-                type: 'input',
-                name: 'engID',
-                message: `What is the engineers' ID?`
-            },
-            {
-                type: 'input',
-                name: 'engEmail',
-                message: `What is the engineers' email?`
-            },
-            {
-                type: 'input',
-                name: 'engGithub',
-                message: `What is the engineers' GitHub username?`
-            },
-            {
-                type: 'list',
-                name: 'addRole',
-                message: `Would you like to add an engineer or intern?`,
-                choice: [
-                    'Engineer',
-                    'Intern',
-                    'Nah Im done'
-                ]
-            }
-            // .then((answers) => {
-            //     if (answers.addRole === 'Engineer') {
-            //         addEngineer ()
-            //     } if (answers.addRole === 'Intern') {
-            //         addIntern ()
-            //     } if (answers.addRole ==='Nah Im done') {
-            //         init ()
-            //     }     
-            // })
-])
-}
-
-function addIntern (answers) {
-    return inquirer.prompt(
-        [
-            {
-                type: 'input',
-                name: 'intName',
-                message: `What is the interns' name?`
-            },
-            {
-                type: 'input',
-                name: 'intID',
-                message: `What is the interns' ID?`
-            },
-            {
-                type: 'input',
-                name: 'intEmail',
-                message: `What is the interns' email?`
-            },
-            {
-                type: 'input',
-                name: 'intSchool',
-                message: `What is the interns' school?`
-            },
-            {
-                type: 'list',
-                name: 'addRole',
-                message: `Would you like to add an engineer or intern?`,
-                choice: [
-                    'Engineer',
-                    'Intern',
-                    'Nah Im done'
-                ]
-            }
-            
-            // ((answers) => {
-            //     if (answers.addRole === 'Engineer') {
-            //         addEngineer ()
-            //     } if (answers.addRole === 'Intern') {
-            //         addIntern ()
-            //     } if (answers.addRole ==='Nah Im done') {
-            //         init ()
-            //     }     
-            // })
-])            
-}
-
-const generateHTML = ({answers}) =>
-    `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-      <title>Employee Tracker</title>
-    </head>
-    <h2>My Team</h2>
-    <body>
-    <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">${manName}</h5>
-      <p class="card-text">Manager.</p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">ID: ${manID} </li>
-      <li class="list-group-item">Email: ${manEmail}</li>
-      <li class="list-group-item">Office Number: ${manOffice}</li>
-    </ul>
-    </div>
-    </body>
-    </html>`;
-
-const init = () => {
-    addManager () 
-    .then((answers)=> writeFile('index.html', generateHTML(answers)))
-    .then(() => console.log ('Successfully wrote a HTML!!'))
-    .catch((err) => console.error(err));
-}
+  });
+};
 
 // Function call to initialize app
-init();
+addManager()
+  .then(addNewemp)
+  .then(employees => {
+    return create(employees);
+  }).then(data => {
+    return createFile(data)
+  }).catch(err => {
+    console.log(err);
+  })
