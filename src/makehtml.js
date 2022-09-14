@@ -1,6 +1,6 @@
 const createManager = (manager) => {
   return `
-  <div class="card" style="width: 18rem; margin: 10px; float: left; width: 25%; padding: 0 10px;">
+  <div class="card" style="width: 18rem; margin: 10px; float: left; width: 25%; padding: 0 10px">
      <div class="card-body">
        <h5 class="card-title">${manager.name}</h5>
        <p class="card-text">${manager.role}</p>
@@ -16,34 +16,32 @@ const createManager = (manager) => {
 
 const createEngineer = (engineer) => {
   return `
-  <div class="card" style="width: 18rem; margin: 10px; float: left; width: 25%; padding: 0 10px;">
+  <div class="card" style="width: 18rem; margin: 10px; float: left; width: 25%; padding: 0 10px">
      <div class="card-body">
        <h5 class="card-title">${engineer.name}</h5>
        <p class="card-text">${engineer.role}</p>
      </div>
-    <div> 
      <ul class="list-group list-group-flush">
-      <p class="list-group-item">ID: ${engineer.id} </p>
+      <p class="list-group-item">ID: ${engineer.id}</p>
       <a href="mailto:${engineer.email}" class="list-group-item">${engineer.email}</a>
-      <p>Github<a href="href="https://github.com/${engineer.github}" class="list-group-item" target="_blank"> ${engineer.github}/a></p>
-      </ul>
+      <a href="href="https://github.com/${engineer.github}" class="list-group-item" target="_blank"> ${engineer.github}</a>
+     </ul>
    </div>
     `;
 };
 
 const createIntern = (intern) => {
   return `
-  <div class="card" style="width: 18rem; margin: 10px; float: left; width: 25%; padding: 0 10px;">
+  <div class="card" style="width: 18rem; margin: 10px; float: left; width: 25%; padding: 0 10px">
      <div class="card-body">
        <h5 class="card-title">${intern.name}</h5>
        <p class="card-text">${intern.role}</p>
      </div>
-    <div> 
      <ul class="list-group list-group-flush">
       <p class="list-group-item">ID: ${intern.id} </p>
       <a href="mailto:${intern.email}" class="list-group-item">${intern.email}</a>
       <p class="list-group-item">School: ${intern.school}</p>
-     </ul>
+     </ul> 
    </div>
     `;
 };
@@ -89,8 +87,6 @@ const createTeamPage = (teamCards) => {
     <h2 style="background-color: salmon; text-align: center; height: 50px ">My Team</h2>
     <body>
         ${teamCards} 
-    </ul>
-    </div>
     </body>
     </html>`;
 };

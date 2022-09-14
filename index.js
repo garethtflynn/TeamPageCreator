@@ -60,7 +60,7 @@ const addNewemp = () => {
         type: "list",
         name: "role",
         message: `Would you like to add an engineer or intern?`,
-        choices: ["Engineer", "Intern", "Finish building"],
+        choices: ["Engineer", "Intern"],
       },
       {
         type: "input",
