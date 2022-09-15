@@ -19,11 +19,11 @@ The purpose of this command line application is to dynamically create a an HTML 
 
 ## Installation 
 
-In order to use this application, the user must first install the Node Package Manager (npm) Inquirer, and Jest to their command line.  
+In order to use this application, the user must first install the Node Package Manager (npm), Inquirer, and Jest to their command line.  
 
 ## Screenshots/Visuals
 
-![App Screenshot]()
+![App Screenshot](./assets/employeeTracker.png)
 
 ## Technology
 

@@ -6,6 +6,7 @@ const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 const create = require("./src/makehtml");
 
+// array that holds all employees
 const employees = [];
 
 const validateUser = (userInput) => {
@@ -17,6 +18,7 @@ const validateUser = (userInput) => {
   }
 };
 
+// variable that holds all the manager information
 const addManager = () => {
   return inquirer
     .prompt([
@@ -53,6 +55,7 @@ const addManager = () => {
     });
 };
 
+// new employee variable that holds the information of an engineer or intern
 const addNewemp = () => {
   return inquirer
     .prompt([
@@ -119,6 +122,7 @@ const addNewemp = () => {
     });
 };
 
+// variable that creates the html file and puts it in the dist folder
 const createFile = (data) => {
   fs.writeFile("./dist/index.html", data, (err) => {
     if (err) {
@@ -129,7 +133,7 @@ const createFile = (data) => {
   });
 };
 
-// Function call to initialize app
+// Function that starts off the whole thing
 addManager()
   .then(addNewemp)
   .then(employees => {
